@@ -20,10 +20,20 @@ function splitWord(container, text) {
 
 splitWord(heroTitle, heroTitle.textContent);
 
-gsap.to(".hero__word", {
-  delay: 0.3,
-  y: 0,
-  ease: Power4.easeOut,
-  duration: 0.5,
-  stagger: 0.1,
-});
+const heroWords = [...document.querySelectorAll('.hero__word')];
+
+const offsetTopHeroWords = heroWords.map((el) => el.className.split(' ')[1]);
+const removeDuplicates = (arr) => arr.filter((item, i) => arr.indexOf(item) === i);
+
+const y = removeDuplicates(offsetTopHeroWords);
+
+y.forEach((el,i)=> {
+  gsap.to(`.${el}`, {
+    delay: 0.3,
+    y: 0,
+    ease: Power4.easeOut,
+    duration: 0.5,
+    stagger: 0.1,
+  });
+})
+
